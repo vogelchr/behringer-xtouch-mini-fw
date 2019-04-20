@@ -16,3 +16,31 @@ GND->IC22->IC23->IC24
 
 IC10, IC11
 	Share clock & serial load, but no 
+
+R185 near JTAG (10k) pulls Pin60/BOOT0 down to GND.
+
+JTAG is not active when user code is running, but when you enable
+the bootloader by pulling boot0 high (3.3v), you'll get...
+
+$ openocd
+Open On-Chip Debugger 0.10.0
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "jtag". To override use 'transport select <transport>'.
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+jtag_ntrst_delay: 100
+none separate
+cortex_m reset_config sysresetreq
+Info : No device selected, using first device.
+Info : J-Link ARM V8 compiled May 27 2009 17:31:22
+Info : Hardware version: 8.00
+Info : VTarget = 3.287 V
+Info : clock speed 1000 kHz
+Info : JTAG tap: stm32f1x.cpu tap/device found: 0x3ba00477 (mfg: 0x23b (ARM Ltd.), part: 0xba00, ver: 0x3)
+Info : JTAG tap: stm32f1x.bs tap/device found: 0x16410041 (mfg: 0x020 (STMicroelectronics), part: 0x6410, ver: 0x1)
+Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
+
+
+
