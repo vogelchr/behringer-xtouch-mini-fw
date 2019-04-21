@@ -11,11 +11,26 @@ ICs used
 
 1x  ic20             3.3v LDO
 
-GND->IC22->IC23->IC24
-	Share clock & serial load
+*** Shift register chains ***
+	parallel input, serial output
 
-IC10, IC11
-	Share clock & serial load, but no 
+	GND->IC22->IC23->IC24 74HC164, parallel input
+		clk -> ARM pin   58=PB6
+		load -> ARM pin  59=PB7
+		data -> ARM pin  61=PB8
+
+	IC10, IC11 share clock, load, 74HC165 parallel input
+		clk         57=PB5
+		load        30=PB11 
+		data ic11   29=PB10	
+		data ic10   27=PB1
+
+Shift-register driving the LEDs, one long chain, 74HC595, parallel output
+
+	IC12->21->13->6->14->7->15->8->16->17->9->18->19->5->4->3
+		data    36=PB15 SPI2_MOSI
+		clk     34=PB13 SPI2_SCK
+		latch   53=PC12 (?)  
 
 R185 near JTAG (10k) pulls Pin60/BOOT0 down to GND.
 
@@ -41,6 +56,4 @@ Info : clock speed 1000 kHz
 Info : JTAG tap: stm32f1x.cpu tap/device found: 0x3ba00477 (mfg: 0x23b (ARM Ltd.), part: 0xba00, ver: 0x3)
 Info : JTAG tap: stm32f1x.bs tap/device found: 0x16410041 (mfg: 0x020 (STMicroelectronics), part: 0x6410, ver: 0x1)
 Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
-
-
 
