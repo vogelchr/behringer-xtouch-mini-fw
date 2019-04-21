@@ -18,5 +18,9 @@ INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
 OPENCM3_DIR=../libopencm3
 
 include $(OPENCM3_DIR)/mk/genlink-config.mk
-include ./rules.mk
+LDSCRIPT=stm32f103rb_from_ram.ld
+
+# include rules.mk
+
+include $(OPENCM3_DIR)/tests/rules.mk
 include $(OPENCM3_DIR)/mk/genlink-rules.mk
